@@ -1,4 +1,5 @@
 // https://github.com/nomemory/neat-matrix-library
+#pragma once
 #include <stdbool.h>
 
 typedef struct matrix_s {
