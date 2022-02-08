@@ -7,13 +7,16 @@ int main() {
     printf("Testing matrix definition...\n");
     matrix *test_def = matrix_new(2500, 7500);
     assert(!is_square(test_def));
-    matrix_free(test_def);
 
     printf("Testing matrix initialzation...\n");
     matrix *test_init = zeros(1337, 7);
     for (int i = 0; i < 1337 * 7; i++) {
         assert(test_init->data[i] == 0);
     }
+
+    printf("Deallocating memory...\n");
+    matrix_free(test_def);
+    matrix_free(test_init);
 
     return 0;
 }
