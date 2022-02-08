@@ -3,11 +3,14 @@
 #include "matrix.h"
 #include "init.h"
 
-int main() {
+void test_matrix() {
     printf("Testing matrix definition...\n");
     matrix *test_def = matrix_new(25, 75);
     assert(!is_square(test_def));
+    matrix_free(test_def);
+}
 
+void test_init() {
     printf("Testing matrix initialzation...\n");
     matrix *test_zero = zeros(13, 37);
     for (int i = 0; i < 13 * 37; i++) {
@@ -20,11 +23,13 @@ int main() {
             assert(test_identity->data[i * 10 + j] == expected);
         }
     }
-
-    printf("Deallocating memory...\n");
-    matrix_free(test_def);
     matrix_free(test_zero);
     matrix_free(test_identity);
+}
 
+int main() {
+    test_matrix();
+    test_init();
+    printf("Done\n");
     return 0;
 }
