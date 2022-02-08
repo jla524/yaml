@@ -47,9 +47,7 @@ matrix *identity(unsigned int n) {
     }
     matrix *mat = zeros(n, n);
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            mat->data[i * mat->rows + j] = 1;
-        }
+        mat->data[i * mat->rows + i] = 1;
     }
     return mat;
 }
