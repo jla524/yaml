@@ -2,6 +2,10 @@
 
 Yet another matrix library.
 
+## Quickstart Guide
+
+Compile and run tests with `make && ./main`
+
 ## Reference
 
 [Writing your own linear algebra matrix library in C][1]
