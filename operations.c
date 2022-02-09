@@ -46,3 +46,18 @@ void matrix_transpose(matrix *a, matrix *out) {
         }
     }
 }
+
+void matrix_dot(matrix *a, matrix *b, matrix *out) {
+    if (a->cols != b->rows || a->rows != out->rows || b->cols != out->cols) {
+        return;
+    }
+    for (int i = 0; i < out->rows; i++) {
+        for (int j = 0; j < out->cols; j++) {
+            double sum = 0.0;
+            for (int k = 0; k < a->rows; k++) {
+                sum += a->data[i * out->rows + k] * b->data[k * out->cols + j];
+            }
+            out->data[i * out->rows + j] = sum;
+        }
+    }
+}
