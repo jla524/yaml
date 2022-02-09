@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
@@ -64,4 +65,18 @@ matrix *copy(matrix *source) {
     return mat;
 }
 
-matrix *from_file(char *path);
+matrix *from_file(char *path) {
+    FILE *fp = fopen(path, "r");
+    if (fp == NULL) {
+        return NULL;
+    }
+    unsigned int rows = 0, cols = 0;
+    fscanf(fp, "%d", &rows);
+    fscanf(fp, "%d", &cols);
+    matrix *mat = matrix_new(rows, cols);
+    for (int i = 0; i < rows * cols; i++) {
+        fscanf(fp, "%lf\t", &mat->data[i]);
+    }
+    fclose(fp);
+    return mat;
+}
