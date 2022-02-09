@@ -2,10 +2,10 @@
 #include "matrix.h"
 
 matrix *matrix_new(unsigned int rows, unsigned int cols) {
-    matrix *mat = calloc(1, sizeof(*mat));
+    matrix *mat = malloc(sizeof(*mat));
     mat->rows = rows;
     mat->cols = cols;
-    mat->data = calloc(1, sizeof(*mat->data));
+    mat->data = malloc(sizeof(double) * rows * cols);
     return mat;
 }
 
