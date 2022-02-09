@@ -16,9 +16,6 @@ void print_matrix(matrix *mat) {
 }
 
 bool size_equal(matrix *a, matrix *b) {
-    if (a == NULL && b == NULL) {
-        return true;
-    }
     if (a == NULL || b == NULL) {
         return false;
     }
