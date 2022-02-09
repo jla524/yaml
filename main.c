@@ -1,7 +1,21 @@
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 #include "matrix.h"
 #include "init.h"
+
+void print_matrix(matrix *mat) {
+    if (mat == NULL) {
+        return;
+    }
+    printf("Printing matrix...\n");
+    for (int i = 0; i < mat->rows; i++) {
+        for (int j = 0; j < mat->cols; j++) {
+            printf("\t%lf ", mat->data[i * mat->rows + j]);
+        }
+        printf("\n");
+    }
+}
 
 void test_matrix() {
     printf("Testing matrix definition...\n");
@@ -17,14 +31,14 @@ void test_init() {
         assert(test_zero->data[i] == 0);
     }
     matrix *test_identity = identity(10);
+    matrix *test_copy = copy(test_identity);
     for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            int expected = i == j ? 1 : 0;
-            assert(test_identity->data[i * 10 + j] == expected);
-        }
+        assert(test_identity->data[i * 10 + i] == 1);
+        assert(test_copy->data[i * 10 + i] == 1);
     }
     matrix_free(test_zero);
     matrix_free(test_identity);
+    matrix_free(test_copy);
 }
 
 int main() {

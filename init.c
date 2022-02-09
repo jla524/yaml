@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "init.h"
 
 matrix *fill(matrix *mat, double val) {
@@ -35,7 +36,7 @@ matrix *rands(unsigned int rows, unsigned int cols) {
     matrix *mat = matrix_new(rows, cols);
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            mat->data[i * mat->rows + j] = (double) rand();
+            mat->data[i * rows + j] = (double) rand();
         }
     }
     return mat;
@@ -47,8 +48,19 @@ matrix *identity(unsigned int n) {
     }
     matrix *mat = zeros(n, n);
     for (int i = 0; i < n; i++) {
-        mat->data[i * mat->rows + i] = 1;
+        mat->data[i * n + i] = 1;
     }
+    return mat;
+}
+
+matrix *copy(matrix *source) {
+    if (source == NULL) {
+        return NULL;
+    }
+    unsigned int rows = source->rows;
+    unsigned int cols = source->cols;
+    matrix *mat = matrix_new(rows, cols);
+    memcpy(mat->data, source->data, sizeof(double) * rows * cols);
     return mat;
 }
 
