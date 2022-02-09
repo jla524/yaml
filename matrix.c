@@ -10,10 +10,16 @@ matrix *matrix_new(unsigned int rows, unsigned int cols) {
 }
 
 void matrix_free(matrix *mat) {
+    if (mat == NULL) {
+        return;
+    }
     free(mat->data);
     free(mat);
 }
 
 bool is_square(matrix *mat) {
+    if (mat == NULL) {
+        return false;
+    }
     return mat->rows == mat->cols;
 }
