@@ -1,21 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
-#include <string.h>
 #include "matrix.h"
 #include "init.h"
-
-void print_matrix(matrix *mat) {
-    if (mat == NULL) {
-        return;
-    }
-    printf("Printing matrix...\n");
-    for (int i = 0; i < mat->rows; i++) {
-        for (int j = 0; j < mat->cols; j++) {
-            printf("\t%lf ", mat->data[i * mat->rows + j]);
-        }
-        printf("\n");
-    }
-}
 
 void test_matrix() {
     printf("Testing matrix definition...\n");

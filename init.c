@@ -58,8 +58,7 @@ matrix *copy(matrix *source) {
     if (source == NULL) {
         return NULL;
     }
-    unsigned int rows = source->rows;
-    unsigned int cols = source->cols;
+    unsigned int rows = source->rows, cols = source->cols;
     matrix *mat = matrix_new(rows, cols);
     memcpy(mat->data, source->data, sizeof(double) * rows * cols);
     return mat;
