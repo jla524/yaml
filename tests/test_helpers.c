@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "../src/helpers.h"
+#include "../src/init.h"
 #include "../src/matrix.h"
 
 void test_size_equal() {
@@ -28,9 +29,30 @@ void test_row_valid() {
     matrix_free(mat);
 }
 
+void test_col_valid() {
+    assert(!row_valid(NULL, 2));
+    matrix *mat = matrix_new(1, 9);
+    assert(!col_valid(mat, -1));
+    assert(!col_valid(mat, 9));
+    assert(col_valid(mat, 7));
+    matrix_free(mat);
+}
+
+void test_get_index() {
+    double arr[] = {0.5, 2.4, 1.3, 0.1, 1.5, 2.7};
+    matrix *mat = from_array(arr, 3, 2);
+    for (int i = 0; i < 3 * 2; i++) {
+        double actual = get_index(mat, i / 2, i % 2);
+        assert(actual == arr[i]);
+    }
+    matrix_free(mat);
+}
+
 void test_all_helpers() {
     printf("Testing helper functions...\t\t");
     test_size_equal();
     test_row_valid();
+    test_col_valid();
+    test_get_index();
     printf("Passed\n");
 }
