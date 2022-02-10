@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <assert.h>
-#include <stdbool.h>
 #include "../src/helpers.h"
 #include "../src/matrix.h"
 
@@ -21,16 +20,17 @@ void test_row_valid() {
     assert(!row_valid(NULL, 5));
     matrix *mat = matrix_new(7, 2);
     assert(!row_valid(mat, -2));
+    assert(!row_valid(mat, 7));
     assert(!row_valid(mat, 9));
     assert(row_valid(mat, 0));
     assert(row_valid(mat, 5));
-    assert(row_valid(mat, 7));
+    assert(row_valid(mat, 6));
     matrix_free(mat);
 }
 
 void test_all_helpers() {
     printf("Testing helper functions...\t\t");
     test_size_equal();
-    //test_row_valid();
+    test_row_valid();
     printf("Passed\n");
 }
