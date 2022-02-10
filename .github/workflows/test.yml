@@ -10,5 +10,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: action/checkout@v2
+        with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
       - name: Run test
         run: make && ./test
