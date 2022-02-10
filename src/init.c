@@ -5,10 +5,11 @@
 #include "init.h"
 
 matrix *fill(matrix *mat, double val) {
-    for (int i = 0; i < mat->rows; i++) {
-        for (int j = 0; j < mat->cols; j++) {
-            mat->data[i * mat->rows + j] = val;
-        }
+    if (mat == NULL) {
+        return NULL;
+    }
+    for (int i = 0; i < mat->rows * mat->cols; i++) {
+        mat->data[i] = val;
     }
     return mat;
 }

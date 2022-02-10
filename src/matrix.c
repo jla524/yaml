@@ -2,6 +2,9 @@
 #include "matrix.h"
 
 matrix *matrix_new(unsigned int rows, unsigned int cols) {
+    if (rows == 0 || cols == 0) {
+        return NULL;
+    }
     matrix *mat = malloc(sizeof(*mat));
     mat->rows = rows;
     mat->cols = cols;
