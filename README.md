@@ -4,7 +4,7 @@ Yet another matrix library.
 
 ## Quickstart Guide
 
-Compile and run tests with `make && ./main`
+Compile and run tests with `make && ./test`
 
 ## Reference
 

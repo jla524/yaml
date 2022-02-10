@@ -1,5 +1,5 @@
 #include <stdbool.h>
 #include "matrix.h"
 
-void print_matrix(matrix *mat);
-bool size_equal(matrix *a, matrix *b);
+inline void print_matrix(matrix *mat);
+inline bool size_equal(matrix *a, matrix *b);

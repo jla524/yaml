@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "helpers.h"
 
-void print_matrix(matrix *mat) {
+inline void print_matrix(matrix *mat) {
     if (mat == NULL) {
         return;
     }
@@ -15,7 +15,7 @@ void print_matrix(matrix *mat) {
     }
 }
 
-bool size_equal(matrix *a, matrix *b) {
+inline bool size_equal(matrix *a, matrix *b) {
     if (a == NULL || b == NULL) {
         return false;
     }
