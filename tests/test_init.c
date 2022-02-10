@@ -108,7 +108,7 @@ void test_from_file() {
 }
 
 void test_all_init() {
-    printf("Testing matrix initialzation...\t");
+    printf("Testing matrix initialzation...\t\t");
     test_fill();
     test_zeros();
     test_ones();

@@ -85,7 +85,7 @@ void test_matrix_dot() {
 }
 
 void test_all_operations() {
-    printf("Testing matrix operations...\t");
+    printf("Testing matrix operations...\t\t");
     test_matrix_add();
     test_matrix_subtract();
     test_matrix_multiply();

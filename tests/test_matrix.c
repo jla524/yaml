@@ -23,7 +23,7 @@ void test_is_square() {
 }
 
 void test_all_matrix() {
-    printf("Testing matrix definitions...\t");
+    printf("Testing matrix definitions...\t\t");
     test_matrix_new();
     test_is_square();
     printf("Passed\n");
