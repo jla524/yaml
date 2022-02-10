@@ -79,6 +79,19 @@ void test_identity() {
     matrix_free(eye);
 }
 
+void test_from_array() {
+    matrix *invalid = from_array(NULL, 0, 0);
+    assert(invalid == NULL);
+    double expected[] = {7.1, 4.0, 9.4, 1.1, 0.8, 3.0};
+    matrix *mat = from_array(expected, 3, 2);
+    assert(mat != NULL);
+    assert(mat->rows == 3);
+    assert(mat->cols == 2);
+    for (int i = 0; i < 3 * 2; i++) {
+        assert(expected[i] == mat->data[i]);
+    }
+}
+
 void test_from_file() {
     matrix *invalid = from_file(NULL);
     assert(invalid == NULL);

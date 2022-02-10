@@ -6,4 +6,5 @@ matrix *ones(unsigned int rows, unsigned int cols);
 matrix *rands(unsigned int rows, unsigned int cols);
 matrix *identity(unsigned int n);
 matrix *copy(matrix *source);
+matrix *from_array(double *data, unsigned int rows, unsigned int cols);
 matrix *from_file(char *path);

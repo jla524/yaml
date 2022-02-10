@@ -65,6 +65,15 @@ matrix *copy(matrix *source) {
     return mat;
 }
 
+matrix *from_array(double data[], unsigned int rows, unsigned int cols) {
+    if (data == NULL || rows == 0 || cols == 0) {
+        return NULL;
+    }
+    matrix *mat = matrix_new(rows, cols);
+    memcpy(mat->data, data, sizeof(double) * rows * cols);
+    return mat;
+}
+
 matrix *from_file(char *path) {
     if (path == NULL) {
         return NULL;
