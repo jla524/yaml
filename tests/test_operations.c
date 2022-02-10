@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include "test_operations.h"
 #include "../src/init.h"
 #include "../src/operations.h"
 
@@ -83,13 +84,12 @@ void test_matrix_dot() {
     matrix_free(mat_dot);
 }
 
-int main() {
-    printf("Testing matrix operations...\n");
+void test_all_operations() {
+    printf("Testing matrix operations...\t");
     test_matrix_add();
     test_matrix_subtract();
     test_matrix_multiply();
     test_matrix_transpose();
     test_matrix_dot();
-    printf("Done\n");
-    return 0;
+    printf("Passed\n");
 }

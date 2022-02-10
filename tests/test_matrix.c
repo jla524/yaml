@@ -22,10 +22,9 @@ void test_is_square() {
     matrix_free(test_non_square);
 }
 
-int main() {
-    printf("Testing matrix definition...\n");
+void test_all_matrix() {
+    printf("Testing matrix definitions...\t");
     test_matrix_new();
     test_is_square();
-    printf("Done\n");
-    return 0;
+    printf("Passed\n");
 }

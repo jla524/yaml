@@ -107,12 +107,11 @@ void test_from_file() {
     }
 }
 
-int main() {
-    printf("Testing matrix initialzation...\n");
+void test_all_init() {
+    printf("Testing matrix initialzation...\t");
     test_fill();
     test_zeros();
     test_ones();
     test_identity();
-    printf("Done\n");
-    return 0;
+    printf("Passed\n");
 }
