@@ -3,6 +3,8 @@
 #include "../src/init.h"
 
 void test_fill() {
+    matrix *invalid = fill(NULL, 5);
+    assert(invalid == NULL);
     matrix *mat = matrix_new(9, 3);
     assert(mat != NULL);
     fill(mat, 9.45);
@@ -34,8 +36,7 @@ void test_ones() {
     assert(one != NULL);
     assert(one->rows == 8);
     assert(one->cols == 5);
-    for (int i = 0; i < 8 * 5; i++) {
-        assert(one->data[i] == 1);
+    for (int i = 0; i < 8 * 5; i++) { assert(one->data[i] == 1);
     }
     matrix_free(one);
 }
@@ -43,12 +44,26 @@ void test_ones() {
 void test_rands() {
     matrix *invalid = rands(0, 0);
     assert(invalid == NULL);
-    matrix *mat = rands(2, 3);
-    assert(mat != NULL);
-    assert(mat->rows == 2);
-    assert(mat->cols == 3);
-    assert(mat->data != NULL);
-    matrix_free(mat);
+    matrix *rand = rands(2, 3);
+    assert(rand != NULL);
+    assert(rand->rows == 2);
+    assert(rand->cols == 3);
+    matrix_free(rand);
+}
+
+void test_copy() {
+    matrix *invalid = copy(NULL);
+    assert(invalid == NULL);
+    matrix *rand = rands(3, 7);
+    matrix *clone = copy(rand);
+    assert(clone != NULL);
+    assert(clone->rows == 3);
+    assert(clone->cols == 7);
+    for (int i = 0; i < 3 * 7; i++) {
+        assert(clone->data[i] == rand->data[i]);
+    }
+    matrix_free(rand);
+    matrix_free(clone);
 }
 
 void test_identity() {
@@ -64,13 +79,27 @@ void test_identity() {
     matrix_free(eye);
 }
 
+void test_from_file() {
+    matrix *invalid = from_file(NULL);
+    assert(invalid == NULL);
+    matrix *not_exist = from_file("file_that_does_not_exist.txt");
+    assert(not_exist == NULL);
+    matrix *mat = from_file("example_matrix.txt");
+    assert(mat != NULL);
+    assert(mat->rows == 3);
+    assert(mat->cols == 2);
+    for (int i = 0; i < 3 * 2; i++) {
+        double expected = 0.1 * i;
+        assert(mat->data[i] == expected);
+    }
+}
+
 int main() {
     printf("Testing matrix initialzation...\n");
     test_fill();
     test_zeros();
     test_ones();
     test_identity();
-    // TODO: test copy and from_file
     printf("Done\n");
     return 0;
 }

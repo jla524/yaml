@@ -66,6 +66,9 @@ matrix *copy(matrix *source) {
 }
 
 matrix *from_file(char *path) {
+    if (path == NULL) {
+        return NULL;
+    }
     FILE *fp = fopen(path, "r");
     if (fp == NULL) {
         return NULL;
@@ -75,7 +78,7 @@ matrix *from_file(char *path) {
     fscanf(fp, "%d", &cols);
     matrix *mat = matrix_new(rows, cols);
     for (int i = 0; i < rows * cols; i++) {
-        fscanf(fp, "%lf\t", &mat->data[i]);
+        fscanf(fp, "%lf ", &mat->data[i]);
     }
     fclose(fp);
     return mat;
