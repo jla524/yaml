@@ -1,6 +1,6 @@
-# YAML
+<img src="https://user-images.githubusercontent.com/39754370/153517332-9997530f-dec1-4736-aa85-f9ea3bcbacce.jpg" alt="matrix" width="350">
 
-Yet another matrix library.
+Yet another matrix library, written in C with no dependencies.
 
 ## Quickstart Guide
 
