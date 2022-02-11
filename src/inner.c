@@ -47,6 +47,6 @@ void subtract_row(matrix *mat, int row_a, int row_b, double factor) {
     for (int i = 0; i < cols; i++) {
         unsigned int index = get_index(mat, row_a, i);
         double value = get_value(mat, row_b, i);
-        mat->data[index] = value * factor;
+        mat->data[index] -= value * factor;
     }
 }
