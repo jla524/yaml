@@ -39,11 +39,21 @@ void test_col_valid() {
 }
 
 void test_get_index() {
+    double arr[] = {0.3, 0.5, 0.0, 0.1, 0.8, 0.1};
+    matrix *mat = from_array(arr, 2, 3);
+    for (int i = 0; i < 2 * 3; i++) {
+        double index = get_index(mat, i / 3, i % 3);
+        assert(index == i);
+    }
+    matrix_free(mat);
+}
+
+void test_get_value() {
     double arr[] = {0.5, 2.4, 1.3, 0.1, 1.5, 2.7};
     matrix *mat = from_array(arr, 3, 2);
     for (int i = 0; i < 3 * 2; i++) {
-        double actual = get_index(mat, i / 2, i % 2);
-        assert(actual == arr[i]);
+        double value = get_value(mat, i / 2, i % 2);
+        assert(value == arr[i]);
     }
     matrix_free(mat);
 }
@@ -54,5 +64,6 @@ void test_all_helpers() {
     test_row_valid();
     test_col_valid();
     test_get_index();
+    test_get_value();
     printf("Passed\n");
 }

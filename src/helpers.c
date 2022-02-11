@@ -9,7 +9,7 @@ void print_matrix(matrix *mat) {
     printf("Printing matrix...\n");
     for (int i = 0; i < mat->rows; i++) {
         for (int j = 0; j < mat->cols; j++) {
-            printf("\t%lf", get_index(mat, i, j));
+            printf("\t%lf", get_value(mat, i, j));
         }
         printf("\n");
     }
@@ -42,10 +42,19 @@ bool col_valid(matrix *mat, int col) {
     return positive && in_bound;
 }
 
-double get_index(matrix *mat, int row, int col) {
+unsigned int get_index(matrix *mat, int row, int col) {
     if (mat == NULL || !row_valid(mat, row) || !col_valid(mat, col)) {
-        return 0;
+        return -1;
     }
     int index = row * mat->cols + col;
-    return mat->data[index];
+    return index;
+}
+
+double get_value(matrix *mat, int row, int col) {
+    unsigned int index = get_index(mat, row, col);
+    if (index == -1) {
+        return 0;
+    }
+    double value = mat->data[index];
+    return value;
 }
