@@ -20,14 +20,15 @@ void test_find_row_pivot() {
 }
 
 void test_find_col_pivot() {
-    assert(find_col_pivot(NULL, 2) == -1);
+    assert(find_col_pivot(NULL, 2, 0) == -1);
     double arr[] = {1, 0, 3, 0, 0, 1, 0, 1, 0};
     matrix *mat = from_array(arr, 3, 3);
-    assert(find_col_pivot(mat, -1) == -1);
-    assert(find_col_pivot(mat, 0) == 0);
-    assert(find_col_pivot(mat, 1) == 2);
-    assert(find_col_pivot(mat, 2) == 0);
-    assert(find_col_pivot(mat, 3) == -1);
+    assert(find_col_pivot(mat, -1, 0) == -1);
+    assert(find_col_pivot(mat, 0, 0) == 0);
+    assert(find_col_pivot(mat, 1, 0) == 2);
+    assert(find_col_pivot(mat, 1, 2)  == 2);
+    assert(find_col_pivot(mat, 2, 2) == -1);
+    assert(find_col_pivot(mat, 3, 2) == -1);
     matrix_free(mat);
 }
 
@@ -58,7 +59,17 @@ void test_is_reduced_row_echelon() {
     matrix_free(mat);
 }
 
-void test_compute_row_echelon();
+void test_compute_row_echelon() {
+    double arr[] = {0, 1, 0, 0, 5, 9};
+    matrix *mat = from_array(arr, 3, 2);
+    compute_row_echelon(mat);
+    assert(is_row_echelon(mat));
+    double expected[] = {5, 9, 0, 1, 0, 0};
+    for (int i = 0; i < 3 * 2; i++) {
+        assert(mat->data[i] == expected[i]);
+    }
+    matrix_free(mat);
+}
 
 void test_compute_reduced_row_echelon();
 
@@ -68,5 +79,6 @@ void test_all_echelon() {
     test_find_col_pivot();
     test_is_row_echelon();
     test_is_reduced_row_echelon();
+    test_compute_row_echelon();
     printf("Passed\n");
 }

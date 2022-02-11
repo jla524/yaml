@@ -14,15 +14,15 @@ int find_row_pivot(matrix *mat, int row) {
     return col_valid(mat, i) ? i : -1;
 }
 
-int find_col_pivot(matrix *mat, int col) {
-    if (mat == NULL || !col_valid(mat, col)) {
+int find_col_pivot(matrix *mat, int col, int start) {
+    if (mat == NULL || !col_valid(mat, col) || !col_valid(mat, start)) {
         return -1;
     }
-    int i = 0;
-    while (i < mat->cols && get_value(mat, i, col) == 0) {
+    int i = start;
+    while (i < mat->rows && get_value(mat, i, col) == 0) {
         i++;
     }
-    return col_valid(mat, i) ? i : -1;
+    return row_valid(mat, i) ? i : -1;
 }
 
 bool is_row_echelon(matrix *mat) {
@@ -80,6 +80,23 @@ bool is_reduced_row_echelon(matrix *mat) {
 void compute_row_echelon(matrix *mat) {
     if (mat == NULL) {
         return;
+    }
+    for (int i = 0; i < mat->cols; i++) {
+        // Swap rows if needed
+        double first_val = get_value(mat, i, i);
+        if (first_val == 0) {
+             int pivot = find_col_pivot(mat, i, i);
+             if (pivot != -1 && pivot != i) {
+                swap_rows(mat, pivot, i);
+             }
+        }
+        // Multiply and subtract other rows
+        first_val = get_value(mat, i, i);
+        for (int j = 1 + 1; j < mat->rows; j++) {
+            if (get_value(mat, i, j) != 0) {
+                subtract_row(mat, j, i, 1 / first_val);
+            }
+        }
     }
 }
 
