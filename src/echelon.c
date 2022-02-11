@@ -7,7 +7,7 @@ int find_pivot(matrix *mat, int row) {
         return -1;
     }
     int j = row;
-    while (j < mat->cols && get_value(mat, row, j) != 0) {
+    while (j < mat->cols && get_value(mat, row, j) == 0) {
         j++;
     }
     return col_valid(mat, j) ? j : -1;
@@ -31,7 +31,7 @@ bool is_row_echelon(matrix *mat) {
     int leading_coeff = -1;
     for (int i = 0; i < rows; i++) {
         int pivot = find_pivot(mat, i);
-        if (leading_coeff >= pivot) {
+        if (pivot != -1 && leading_coeff >= pivot) {
             return false;
         }
         leading_coeff = pivot;
