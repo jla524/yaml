@@ -3,6 +3,7 @@
 #include <time.h>
 #include <string.h>
 #include "init.h"
+#include "helpers.h"
 
 matrix *fill(matrix *mat, double val) {
     if (mat == NULL) {
@@ -36,10 +37,8 @@ matrix *rands(unsigned int rows, unsigned int cols) {
     }
     srand(time(NULL));
     matrix *mat = matrix_new(rows, cols);
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            mat->data[i * rows + j] = (double) rand();
-        }
+    for (int i = 0; i < rows * cols; i++) {
+        mat->data[i] = (double) rand();
     }
     return mat;
 }
@@ -50,7 +49,8 @@ matrix *identity(unsigned int n) {
     }
     matrix *mat = zeros(n, n);
     for (int i = 0; i < n; i++) {
-        mat->data[i * n + i] = 1;
+        int index = get_index(mat, i, i);
+        mat->data[index] = 1;
     }
     return mat;
 }
@@ -63,6 +63,29 @@ matrix *copy(matrix *source) {
     matrix *mat = matrix_new(rows, cols);
     memcpy(mat->data, source->data, sizeof(double) * rows * cols);
     return mat;
+}
+
+matrix *concat_row(matrix *a, matrix *b) {
+    if (a == NULL || b == NULL || a->rows != b->rows) {
+        return NULL;
+    }
+    unsigned int rows = a->rows, cols_a = a->cols, cols_b = b->cols;
+    matrix *mat = matrix_new(rows, cols_a + cols_b);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols_a; j++) {
+            int index = get_index(mat, i, j);
+            mat->data[index] = get_value(a, i, j);
+        }
+        for (int j = 0; j < cols_b; j++) {
+            int index = get_index(mat, cols_a + i, j);
+            mat->data[index] = get_value(b, i, j);
+        }
+    }
+    return mat;
+}
+
+matrix *concat_col(matrix *a, matrix *b) {
+    return NULL;
 }
 
 matrix *from_array(double data[], unsigned int rows, unsigned int cols) {
