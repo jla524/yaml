@@ -40,7 +40,8 @@ void swap_rows(matrix *mat, int row_a, int row_b) {
 }
 
 void subtract_row(matrix *mat, int row_a, int row_b, double factor) {
-    if (mat == NULL || !row_valid(mat, row_a) || !row_valid(mat, row_b)) {
+    if (mat == NULL || !row_valid(mat, row_a)
+        || !row_valid(mat, row_b) || factor == 0)  {
         return;
     }
     unsigned int cols = mat->cols;

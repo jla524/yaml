@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "echelon.h"
 #include "helpers.h"
+#include "inner.h"
 
 int find_pivot(matrix *mat, int row) {
     if (mat == NULL || !row_valid(mat, row)) {
@@ -65,5 +66,10 @@ bool is_reduced_row_echelon(matrix *mat) {
     return true;
 }
 
-void compute_row_echelon(matrix *mat);
+void compute_row_echelon(matrix *mat) {
+    if (mat == NULL) {
+        return;
+    }
+}
+
 void compute_reduced_row_echelon(matrix *mat);

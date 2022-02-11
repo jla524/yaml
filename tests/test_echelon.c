@@ -47,6 +47,7 @@ void test_is_reduced_row_echelon() {
 }
 
 void test_compute_row_echelon();
+
 void test_compute_reduced_row_echelon();
 
 void test_all_echelon() {
