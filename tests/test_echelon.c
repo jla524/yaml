@@ -71,7 +71,17 @@ void test_compute_row_echelon() {
     matrix_free(mat);
 }
 
-void test_compute_reduced_row_echelon();
+void test_compute_reduced_row_echelon() {
+    double arr[] = {1, 2, 3, 2, -1, 1, 3, 0, -1};
+    matrix *mat = from_array(arr, 3, 3);
+    compute_reduced_row_echelon(mat);
+    assert(is_reduced_row_echelon(mat));
+    double expected[] = {1, 0, 0, 0, 1, 0, 0, 0, 1};
+    for (int i = 0; i < 3 * 3; i++) {
+        assert(mat->data[i] == expected[i]);
+    }
+    matrix_free(mat);
+}
 
 void test_all_echelon() {
     printf("Testing row echelon functions...\t");
@@ -80,5 +90,6 @@ void test_all_echelon() {
     test_is_row_echelon();
     test_is_reduced_row_echelon();
     test_compute_row_echelon();
+    test_compute_reduced_row_echelon();
     printf("Passed\n");
 }

@@ -83,21 +83,44 @@ void compute_row_echelon(matrix *mat) {
     }
     for (int i = 0; i < mat->cols; i++) {
         // Swap rows if needed
-        double first_val = get_value(mat, i, i);
-        if (first_val == 0) {
+        if (get_value(mat, i, i) == 0) {
              int pivot = find_col_pivot(mat, i, i);
              if (pivot != -1 && pivot != i) {
                 swap_rows(mat, pivot, i);
              }
         }
         // Multiply and subtract other rows
-        first_val = get_value(mat, i, i);
-        for (int j = 1 + 1; j < mat->rows; j++) {
-            if (get_value(mat, i, j) != 0) {
-                subtract_row(mat, j, i, 1 / first_val);
+        for (int j = i + 1; j < mat->rows; j++) {
+            double top = get_value(mat, j, i);
+            double bottom = get_value(mat, i, i);
+            if (bottom != 0) {
+                subtract_row(mat, j, i, top / bottom);
             }
         }
     }
 }
 
-void compute_reduced_row_echelon(matrix *mat);
+void compute_reduced_row_echelon(matrix *mat) {
+    if (mat == NULL) {
+        return;
+    }
+    compute_row_echelon(mat);
+    unsigned int rows = mat->rows;
+    int pivots[rows];
+    for (int i = 0; i < rows; i++) {
+        // Convert all pivots to ones
+        pivots[i] = find_row_pivot(mat, i);
+        if (pivots[i] != -1) {
+            double value = get_value(mat, i, pivots[i]);
+            multiply_row(mat, i, 1 / value);
+        }
+    }
+    for (int i = rows - 1; i >= 0; i--) {
+        if (pivots[i] != -1) {
+            for (int j = i - 1; j >= 0; j--) {
+                double value = get_value(mat, j, pivots[i]);
+                subtract_row(mat, j, i, value);
+            }
+        }
+    }
+}
