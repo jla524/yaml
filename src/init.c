@@ -77,7 +77,7 @@ matrix *concat_row(matrix *a, matrix *b) {
             mat->data[index] = get_value(a, i, j);
         }
         for (int j = 0; j < cols_b; j++) {
-            int index = get_index(mat, cols_a + i, j);
+            int index = get_index(mat, i, cols_a + j);
             mat->data[index] = get_value(b, i, j);
         }
     }
@@ -85,7 +85,24 @@ matrix *concat_row(matrix *a, matrix *b) {
 }
 
 matrix *concat_col(matrix *a, matrix *b) {
-    return NULL;
+    if (a == NULL || b == NULL || a->cols != b->cols) {
+        return NULL;
+    }
+    unsigned int rows_a = a->rows, rows_b = b->rows, cols = a->cols;
+    matrix *mat = matrix_new(rows_a + rows_b, cols);
+    for (int i = 0; i < rows_a; i++) {
+        for (int j = 0; j < cols; j++) {
+            int index = get_index(mat, i, j);
+            mat->data[index] = get_value(a, i, j);
+        }
+    }
+    for (int i = 0; i < rows_b; i++) {
+        for (int j = 0; j < cols; j++) {
+            int index = get_index(mat, rows_a + i, j);
+            mat->data[index] = get_value(b, i, j);
+        }
+    }
+    return mat;
 }
 
 matrix *from_array(double data[], unsigned int rows, unsigned int cols) {

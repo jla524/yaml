@@ -75,23 +75,38 @@ void test_copy() {
 }
 
 void test_concat_row() {
-    double arr_a[] = {1, 2, 4, 5};
+    double arr_a[] = {1, 2, 5, 6};
     matrix *mat_a = from_array(arr_a, 2, 2);
-    double arr_b[] = {3, 6};
-    matrix *mat_b = from_array(arr_b, 2, 1);
+    double arr_b[] = {3, 4, 7, 8};
+    matrix *mat_b = from_array(arr_b, 2, 2);
     matrix *cat = concat_row(mat_a, mat_b);
     assert(cat != NULL);
     assert(cat->rows = 2);
-    assert(cat->cols = 3);
-    for (int i = 0; i < 3 * 2; i++) {
-        assert(cat->data[i] = i + 1);
+    assert(cat->cols = 4);
+    for (int i = 0; i < 2 * 4; i++) {
+        assert(cat->data[i] == i + 1);
     }
     matrix_free(mat_a);
     matrix_free(mat_b);
     matrix_free(cat);
 }
 
-void test_concat_col();
+void test_concat_col() {
+    double arr_a[] = {1, 2, 3, 4};
+    matrix *mat_a = from_array(arr_a, 2, 2);
+    double arr_b[] = {5, 6, 7, 8};
+    matrix *mat_b = from_array(arr_b, 2, 2);
+    matrix *cat = concat_col(mat_a, mat_b);
+    assert(cat != NULL);
+    assert(cat->rows = 2);
+    assert(cat->cols = 4);
+    for (int i = 0; i < 2 * 4; i++) {
+        assert(cat->data[i] == i + 1);
+    }
+    matrix_free(mat_a);
+    matrix_free(mat_b);
+    matrix_free(cat);
+}
 
 void test_from_array() {
     assert(from_array(NULL, 0, 0) == NULL);
@@ -126,6 +141,7 @@ void test_all_init() {
     test_ones();
     test_identity();
     test_concat_row();
+    test_concat_col();
     test_from_array();
     test_from_file();
     printf("Passed\n");
