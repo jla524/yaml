@@ -7,15 +7,27 @@
 #include "../src/inner.h"
 #include "../src/helpers.h"
 
-void test_find_pivot() {
-    assert(find_pivot(NULL, 8) == -1);
-    double arr[] = {1, 4, 6, 0, 1, 7, 0, 0, 0};
+void test_find_row_pivot() {
+    assert(find_row_pivot(NULL, 8) == -1);
+    double arr[] = {0, 4, 6, 1, 1, 7, 0, 0, 0};
     matrix *mat = from_array(arr, 3, 3);
-    assert(find_pivot(mat, -1) == -1);
-    assert(find_pivot(mat, 0) == 0);
-    assert(find_pivot(mat, 1) == 1);
-    assert(find_pivot(mat, 2) == -1);
-    assert(find_pivot(mat, 4) == -1);
+    assert(find_row_pivot(mat, -1) == -1);
+    assert(find_row_pivot(mat, 0) == 1);
+    assert(find_row_pivot(mat, 1) == 0);
+    assert(find_row_pivot(mat, 2) == -1);
+    assert(find_row_pivot(mat, 4) == -1);
+    matrix_free(mat);
+}
+
+void test_find_col_pivot() {
+    assert(find_col_pivot(NULL, 2) == -1);
+    double arr[] = {1, 0, 3, 0, 0, 1, 0, 1, 0};
+    matrix *mat = from_array(arr, 3, 3);
+    assert(find_col_pivot(mat, -1) == -1);
+    assert(find_col_pivot(mat, 0) == 0);
+    assert(find_col_pivot(mat, 1) == 2);
+    assert(find_col_pivot(mat, 2) == 0);
+    assert(find_col_pivot(mat, 3) == -1);
     matrix_free(mat);
 }
 
@@ -52,7 +64,8 @@ void test_compute_reduced_row_echelon();
 
 void test_all_echelon() {
     printf("Testing row echelon functions...\t");
-    test_find_pivot();
+    test_find_row_pivot();
+    test_find_col_pivot();
     test_is_row_echelon();
     test_is_reduced_row_echelon();
     printf("Passed\n");

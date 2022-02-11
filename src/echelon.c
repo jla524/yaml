@@ -3,15 +3,26 @@
 #include "helpers.h"
 #include "inner.h"
 
-int find_pivot(matrix *mat, int row) {
+int find_row_pivot(matrix *mat, int row) {
     if (mat == NULL || !row_valid(mat, row)) {
         return -1;
     }
-    int j = row;
-    while (j < mat->cols && get_value(mat, row, j) == 0) {
-        j++;
+    int i = 0;
+    while (i < mat->cols && get_value(mat, row, i) == 0) {
+        i++;
     }
-    return col_valid(mat, j) ? j : -1;
+    return col_valid(mat, i) ? i : -1;
+}
+
+int find_col_pivot(matrix *mat, int col) {
+    if (mat == NULL || !col_valid(mat, col)) {
+        return -1;
+    }
+    int i = 0;
+    while (i < mat->cols && get_value(mat, i, col) == 0) {
+        i++;
+    }
+    return col_valid(mat, i) ? i : -1;
 }
 
 bool is_row_echelon(matrix *mat) {
@@ -31,7 +42,7 @@ bool is_row_echelon(matrix *mat) {
     // coefficient of the row above it
     int leading_coeff = -1;
     for (int i = 0; i < rows; i++) {
-        int pivot = find_pivot(mat, i);
+        int pivot = find_row_pivot(mat, i);
         if (pivot != -1 && leading_coeff >= pivot) {
             return false;
         }
@@ -51,7 +62,7 @@ bool is_reduced_row_echelon(matrix *mat) {
     // The leading entry in each non-zero row is a 1
     // Each column containing a leading 1 has zeros in all other entries
     for (int i = 0; i < mat->rows; i++) {
-        int pivot = find_pivot(mat, i);
+        int pivot = find_row_pivot(mat, i);
         if (pivot != -1) {
             if (get_value(mat, i, pivot) != 1) {
                 return false;
