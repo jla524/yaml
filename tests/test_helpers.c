@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include "test_helpers.h"
 #include "../src/helpers.h"
 #include "../src/init.h"
 #include "../src/matrix.h"

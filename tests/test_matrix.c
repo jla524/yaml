@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+#include "test_matrix.h"
 #include "../src/matrix.h"
 
 void test_matrix_new() {

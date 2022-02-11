@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "test_inner.h"
 #include "../src/init.h"
 #include "../src/inner.h"
 #include "../src/helpers.h"
