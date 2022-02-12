@@ -8,6 +8,7 @@ Currently supports:
 - Reduced row echelon form
 - Solving systems of linear equations
 - Determinant
+- Inverse
 
 ## Quickstart Guide
 
@@ -23,8 +24,11 @@ Compile and run unit tests with `make && ./test`
 
 [Determinant of a Matrix][4]
 
+[Inverse of a Matrix using Elementary Row Operations][5]
+
 
 [1]: https://www.andreinc.net/2021/01/20/writing-your-own-linear-algebra-matrix-library-in-c
 [2]: https://en.wikipedia.org/wiki/Row_echelon_form
 [3]: https://www.mathsisfun.com/algebra/systems-linear-equations-matrices.html
 [4]: https://www.mathsisfun.com/algebra/matrix-determinant.html
+[5]: https://www.mathsisfun.com/algebra/matrix-inverse-row-operations-gauss-jordan.html

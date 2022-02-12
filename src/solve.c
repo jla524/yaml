@@ -5,15 +5,6 @@
 #include "helpers.h"
 #include "inner.h"
 
-matrix *row_reduction(matrix *a, matrix *b) {
-    if (a == NULL || b == NULL || b->cols != 1) {
-        return NULL;
-    }
-    matrix *mat = concat_col(a, b);
-    compute_reduced_row_echelon(mat);
-    return mat;
-}
-
 double determinant(matrix *mat) {
     if (mat == NULL || !is_square(mat)) {
         return 0;
@@ -33,4 +24,24 @@ double determinant(matrix *mat) {
         result += sign * constant * determinant(sub_mat);
     }
     return result;
+}
+
+matrix *inverse(matrix *mat) {
+    if (mat == NULL || mat->rows != mat->cols) {
+        return NULL;
+    }
+    matrix *eye = identity(mat->rows);
+    matrix *result = concat_col(mat, eye);
+    compute_reduced_row_echelon(result);
+    free(eye);
+    return result;
+}
+
+matrix *row_reduction(matrix *a, matrix *b) {
+    if (a == NULL || b == NULL || b->cols != 1) {
+        return NULL;
+    }
+    matrix *mat = concat_col(a, b);
+    compute_reduced_row_echelon(mat);
+    return mat;
 }

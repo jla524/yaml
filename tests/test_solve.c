@@ -6,6 +6,37 @@
 #include "../src/init.h"
 #include "../src/helpers.h"
 
+void test_determinant() {
+    assert(determinant(NULL) == 0);
+    assert(determinant(zeros(3, 2)) == 0);
+    double easy_arr[] = {3, 8, 4, 6};
+    matrix *easy_mat = from_array(easy_arr, 2, 2);
+    assert(determinant(easy_mat) == -14);
+    matrix_free(easy_mat);
+    double hard_arr[] = {6, 1, 1, 4, -2, 5, 2, 8, 7};
+    matrix *hard_mat = from_array(hard_arr, 3, 3);
+    assert(determinant(hard_mat) == -306);
+    matrix_free(easy_mat);
+}
+
+void test_inverse() {
+    double arr[] = {3, 0, 2, 2, 0, -2, 0, 1, 1};
+    matrix *mat = from_array(arr, 3, 3);
+    matrix *result = inverse(mat);
+    double inverse_arr[] = {0.2, 0.2, 0, -0.2, 0.3, 1, 0.2, -0.3, 0};
+    matrix *inverse_mat = from_array(inverse_arr, 3, 3);
+    matrix *expected = concat_col(identity(3), inverse_mat);
+    double tolerance = 1e-15;
+    for (int i = 0; i < 6 * 3; i++) {
+        double error = expected->data[i] - result->data[i];
+        assert(error < tolerance);
+    }
+    matrix_free(mat);
+    matrix_free(result);
+    matrix_free(inverse_mat);
+    matrix_free(expected);
+}
+
 void test_row_reduction() {
     assert(row_reduction(NULL, NULL) == NULL);
     double arr_a[] = {1, 3, -2, 3, 5, 6, 2, 4, 3};
@@ -26,21 +57,10 @@ void test_row_reduction() {
     matrix_free(final);
 }
 
-void test_determinant() {
-    assert(determinant(NULL) == 0);
-    assert(determinant(zeros(3, 2)) == 0);
-    double easy_arr[] = {3, 8, 4, 6};
-    matrix *easy_mat = from_array(easy_arr, 2, 2);
-    assert(determinant(easy_mat) == -14);
-    matrix_free(easy_mat);
-    double hard_arr[] = {6, 1, 1, 4, -2, 5, 2, 8, 7};
-    matrix *hard_mat = from_array(hard_arr, 3, 3);
-    assert(determinant(hard_mat) == -306);
-}
-
 void test_all_solve() {
     printf("Testing equation solvers...\t\t");
-    test_row_reduction();
     test_determinant();
+    test_inverse();
+    test_row_reduction();
     printf("Passed\n");
 }
