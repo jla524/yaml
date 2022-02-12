@@ -71,7 +71,7 @@ matrix *remove_row(matrix *mat, int number) {
         if (i != number) {
             for (int j = 0; j < cols; j++) {
                 double value = get_value(mat, i, j);
-                int index = get_index(new, i - number > i, j);
+                int index = get_index(new, i - (i > number), j);
                 new->data[index] = value;
             }
         }
@@ -89,7 +89,7 @@ matrix *remove_col(matrix *mat, int number) {
         for (int j = 0; j < cols; j++) {
             if (j != number) {
                 double value = get_value(mat, i, j);
-                int index = get_index(new, i, j - number > i);
+                int index = get_index(new, i, j - (j > number));
                 new->data[index] = value;
             }
         }

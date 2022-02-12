@@ -87,15 +87,16 @@ void test_remove_row() {
 
 void test_remove_col() {
     assert(remove_col(NULL, 1) == NULL);
-    double arr[] = {5, 6, 7, 8};
-    matrix *mat = from_array(arr, 2, 2);
+    double arr[] = {6, 1, 1, 4, -2, 5, 2, 8, 7};
+    matrix *mat = from_array(arr, 3, 3);
     assert(remove_col(mat, -2) == NULL);
     matrix *new = remove_col(mat, 1);
     assert(new != NULL);
     assert(new->rows = 2);
     assert(new->cols = 1);
     for (int i = 0; i < 2; i++) {
-        assert(new->data[i] == arr[2 * i]);
+        int index = i / 2 * 2 + (i % 2) * 2;
+        assert(new->data[i] == arr[index]);
     }
     matrix_free(mat);
     matrix_free(new);

@@ -29,6 +29,13 @@ void test_row_reduction() {
 void test_determinant() {
     assert(determinant(NULL) == 0);
     assert(determinant(zeros(3, 2)) == 0);
+    double easy_arr[] = {3, 8, 4, 6};
+    matrix *easy_mat = from_array(easy_arr, 2, 2);
+    assert(determinant(easy_mat) == -14);
+    matrix_free(easy_mat);
+    double hard_arr[] = {6, 1, 1, 4, -2, 5, 2, 8, 7};
+    matrix *hard_mat = from_array(hard_arr, 3, 3);
+    assert(determinant(hard_mat) == -306);
 }
 
 void test_all_solve() {
