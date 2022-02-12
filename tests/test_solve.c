@@ -4,6 +4,7 @@
 #include "test_solve.h"
 #include "../src/solve.h"
 #include "../src/init.h"
+#include "../src/helpers.h"
 
 void test_row_reduction() {
     assert(row_reduction(NULL, NULL) == NULL);
@@ -25,7 +26,14 @@ void test_row_reduction() {
     matrix_free(final);
 }
 
+void test_determinant() {
+    assert(determinant(NULL) == 0);
+    assert(determinant(zeros(3, 2)) == 0);
+}
+
 void test_all_solve() {
     printf("Testing equation solvers...\t\t");
+    test_row_reduction();
+    test_determinant();
     printf("Passed\n");
 }

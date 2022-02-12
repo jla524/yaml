@@ -66,25 +66,6 @@ matrix *copy(matrix *source) {
 }
 
 matrix *concat_row(matrix *a, matrix *b) {
-    if (a == NULL || b == NULL || a->rows != b->rows) {
-        return NULL;
-    }
-    unsigned int rows = a->rows, cols_a = a->cols, cols_b = b->cols;
-    matrix *mat = matrix_new(rows, cols_a + cols_b);
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols_a; j++) {
-            int index = get_index(mat, i, j);
-            mat->data[index] = get_value(a, i, j);
-        }
-        for (int j = 0; j < cols_b; j++) {
-            int index = get_index(mat, i, cols_a + j);
-            mat->data[index] = get_value(b, i, j);
-        }
-    }
-    return mat;
-}
-
-matrix *concat_col(matrix *a, matrix *b) {
     if (a == NULL || b == NULL || a->cols != b->cols) {
         return NULL;
     }
@@ -99,6 +80,25 @@ matrix *concat_col(matrix *a, matrix *b) {
     for (int i = 0; i < rows_b; i++) {
         for (int j = 0; j < cols; j++) {
             int index = get_index(mat, rows_a + i, j);
+            mat->data[index] = get_value(b, i, j);
+        }
+    }
+    return mat;
+}
+
+matrix *concat_col(matrix *a, matrix *b) {
+    if (a == NULL || b == NULL || a->rows != b->rows) {
+        return NULL;
+    }
+    unsigned int rows = a->rows, cols_a = a->cols, cols_b = b->cols;
+    matrix *mat = matrix_new(rows, cols_a + cols_b);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols_a; j++) {
+            int index = get_index(mat, i, j);
+            mat->data[index] = get_value(a, i, j);
+        }
+        for (int j = 0; j < cols_b; j++) {
+            int index = get_index(mat, i, cols_a + j);
             mat->data[index] = get_value(b, i, j);
         }
     }

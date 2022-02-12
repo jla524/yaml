@@ -75,9 +75,10 @@ void test_copy() {
 }
 
 void test_concat_row() {
-    double arr_a[] = {1, 2, 5, 6};
+    double arr_a[] = {1, 2, 3, 4};
     matrix *mat_a = from_array(arr_a, 2, 2);
-    double arr_b[] = {3, 4, 7, 8};
+    assert(concat_row(NULL, mat_a) == NULL);
+    double arr_b[] = {5, 6, 7, 8};
     matrix *mat_b = from_array(arr_b, 2, 2);
     matrix *cat = concat_row(mat_a, mat_b);
     assert(cat != NULL);
@@ -92,9 +93,10 @@ void test_concat_row() {
 }
 
 void test_concat_col() {
-    double arr_a[] = {1, 2, 3, 4};
+    double arr_a[] = {1, 2, 5, 6};
     matrix *mat_a = from_array(arr_a, 2, 2);
-    double arr_b[] = {5, 6, 7, 8};
+    assert(concat_col(mat_a, NULL) == NULL);
+    double arr_b[] = {3, 4, 7, 8};
     matrix *mat_b = from_array(arr_b, 2, 2);
     matrix *cat = concat_col(mat_a, mat_b);
     assert(cat != NULL);
