@@ -9,6 +9,9 @@ double determinant(matrix *mat) {
     if (mat == NULL || !is_square(mat)) {
         return 0;
     }
+    if (mat->rows == 1) {
+        return get_value(mat, 0, 0);
+    }
     if (mat->rows == 2) {
         double a = get_value(mat, 0, 0);
         double b = get_value(mat, 0, 1);
