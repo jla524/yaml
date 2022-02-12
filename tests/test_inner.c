@@ -69,11 +69,45 @@ void test_subtract_row() {
     matrix_free(mat);
 }
 
+void test_remove_row() {
+    assert(remove_row(NULL, 1) == NULL);
+    double arr[] = {1, 3, 2, 4};
+    matrix *mat = from_array(arr, 2, 2);
+    assert(remove_row(mat, 4) == NULL);
+    matrix *new = remove_row(mat, 0);
+    assert(new != NULL);
+    assert(new->rows = 1);
+    assert(new->cols = 2);
+    for (int i = 0; i < 2; i++) {
+        assert(new->data[i] == arr[i + 2]);
+    }
+    matrix_free(mat);
+    matrix_free(new);
+}
+
+void test_remove_col() {
+    assert(remove_col(NULL, 1) == NULL);
+    double arr[] = {5, 6, 7, 8};
+    matrix *mat = from_array(arr, 2, 2);
+    assert(remove_col(mat, -2) == NULL);
+    matrix *new = remove_col(mat, 1);
+    assert(new != NULL);
+    assert(new->rows = 2);
+    assert(new->cols = 1);
+    for (int i = 0; i < 2; i++) {
+        assert(new->data[i] == arr[2 * i]);
+    }
+    matrix_free(mat);
+    matrix_free(new);
+}
+
 void test_all_inner() {
     printf("Testing inner operations...\t\t");
     test_get_row();
     test_get_column();
     test_swap_rows();
     test_subtract_row();
+    test_remove_row();
+    test_remove_col();
     printf("Passed\n");
 }

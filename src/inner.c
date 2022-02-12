@@ -60,3 +60,39 @@ void subtract_row(matrix *mat, int row_a, int row_b, double factor) {
         mat->data[index] -= value * factor;
     }
 }
+
+matrix *remove_row(matrix *mat, int number) {
+    if (mat == NULL || !row_valid(mat, number) || mat->rows <= 1) {
+        return NULL;
+    }
+    unsigned int rows = mat->rows, cols = mat->cols;
+    matrix *new = matrix_new(rows - 1, cols);
+    for (int i = 0; i < rows; i++) {
+        if (i != number) {
+            for (int j = 0; j < cols; j++) {
+                double value = get_value(mat, i, j);
+                int index = get_index(new, i - number > i, j);
+                new->data[index] = value;
+            }
+        }
+    }
+    return new;
+}
+
+matrix *remove_col(matrix *mat, int number) {
+    if (mat == NULL || !col_valid(mat, number) || mat->cols <= 1) {
+        return NULL;
+    }
+    unsigned int rows = mat->rows, cols = mat->cols;
+    matrix *new = matrix_new(rows, cols - 1);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (j != number) {
+                double value = get_value(mat, i, j);
+                int index = get_index(new, i, j - number > i);
+                new->data[index] = value;
+            }
+        }
+    }
+    return new;
+}
