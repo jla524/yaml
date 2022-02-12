@@ -52,7 +52,8 @@ void test_is_reduced_row_echelon() {
     assert(is_reduced_row_echelon(identity(4)));
     double arr[] = {1, 0, 2, 0, 1, 0};
     matrix *mat = from_array(arr, 2, 3);
-    assert(!is_reduced_row_echelon(mat));
+    assert(mat->cols == 3);
+    assert(is_reduced_row_echelon(mat));
     int index = get_index(mat, 0, 2);
     mat->data[index] = 0;
     assert(is_reduced_row_echelon(mat));
@@ -72,12 +73,12 @@ void test_compute_row_echelon() {
 }
 
 void test_compute_reduced_row_echelon() {
-    double arr[] = {1, 2, 3, 2, -1, 1, 3, 0, -1};
-    matrix *mat = from_array(arr, 3, 3);
+    double arr[] = {1, 3, -1, 0, 1, 7};
+    matrix *mat = from_array(arr, 2, 3);
     compute_reduced_row_echelon(mat);
     assert(is_reduced_row_echelon(mat));
-    double expected[] = {1, 0, 0, 0, 1, 0, 0, 0, 1};
-    for (int i = 0; i < 3 * 3; i++) {
+    double expected[] = {1, 0, -22, 0, 1, 7};
+    for (int i = 0; i < 2 * 3; i++) {
         assert(mat->data[i] == expected[i]);
     }
     matrix_free(mat);

@@ -60,15 +60,20 @@ bool is_reduced_row_echelon(matrix *mat) {
         return false;
     }
     // The leading entry in each non-zero row is a 1
-    // Each column containing a leading 1 has zeros in all other entries
     for (int i = 0; i < mat->rows; i++) {
         int pivot = find_row_pivot(mat, i);
         if (pivot != -1) {
             if (get_value(mat, i, pivot) != 1) {
                 return false;
             }
-            for (int j = i + 1; j < mat->cols; j++) {
-                if (j != pivot && get_value(mat, i, j) != 0) {
+        }
+    }
+    // Each column containing a leading 1 has 0s in all other entries
+    for (int i = 0; i < mat->cols; i++) {
+        int pivot = find_col_pivot(mat, i, 0);
+        if (get_value(mat, pivot, i) == 1) {
+            for (int j = i + 1; j < mat->rows; j++) {
+                if (pivot != j && get_value(mat, j, i) != 0) {
                     return false;
                 }
             }
