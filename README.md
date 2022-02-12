@@ -3,12 +3,14 @@
 Yet another matrix library, written in C with no dependencies.
 
 Currently supports:
-- Matrix operations (add, subtract, multiply, dot, etc.)
+- Matrix initialization (zeros, ones, identity, etc.)
+- Matrix operations (add, multiply, dot, etc.)
+- Row/column operations (insert, swap, remove, etc.)
+- Determinant
+- Inverse
 - Row echelon form
 - Reduced row echelon form
 - Solving systems of linear equations
-- Determinant
-- Inverse
 
 ## Quickstart Guide
 
