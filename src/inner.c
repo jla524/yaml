@@ -61,6 +61,52 @@ void subtract_row(matrix *mat, int row_a, int row_b, double factor) {
     }
 }
 
+matrix *insert_row(matrix *a, matrix *b, int number) {
+    if (a == NULL || b == NULL || b->rows != 1 || a->cols != b->cols
+        || !(row_valid(a, number) || number == a->rows)) {
+            return NULL;
+    }
+    unsigned int rows = a->rows, cols = a->cols;
+    matrix *new = matrix_new(rows + 1, cols);
+    for (int i = 0; i < cols; i++) {
+        int index = get_index(new, number, i);
+        new->data[index] = b->data[i];
+    }
+    for (int i = 0; i < rows + 1; i++) {
+        if (i != number) {
+            for (int j = 0; j < cols; j++) {
+                double value = get_value(a, i - (i > number), j);
+                int index = get_index(new, i, j);
+                new->data[index] = value;
+            }
+        }
+    }
+    return new;
+}
+
+matrix *insert_col(matrix *a, matrix *b, int number) {
+    if (a == NULL || b == NULL || b->cols != 1 || a->rows != b->rows
+        || !(col_valid(a, number) || number == a->cols)) {
+            return NULL;
+    }
+    unsigned int rows = a->rows, cols = a->cols;
+    matrix *new = matrix_new(rows, cols + 1);
+    for (int i = 0; i < rows; i++) {
+        int index = get_index(new, i, number);
+        new->data[index] = b->data[i];
+    }
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols + 1; j++) {
+            if (j != number) {
+                double value = get_value(a, i, j - (j > number));
+                int index = get_index(new, i, j);
+                new->data[index] = value;
+            }
+        }
+    }
+    return new;
+}
+
 matrix *remove_row(matrix *mat, int number) {
     if (mat == NULL || !row_valid(mat, number) || mat->rows <= 1) {
         return NULL;

@@ -69,6 +69,44 @@ void test_subtract_row() {
     matrix_free(mat);
 }
 
+void test_insert_row() {
+    double arr_a[] = {1, 2, 5, 6};
+    matrix *mat_a = from_array(arr_a, 2, 2);
+    assert(insert_row(mat_a, NULL, 0) == NULL);
+    assert(insert_row(mat_a, mat_a, 3) == NULL);
+    double arr_b[] = {3, 4};
+    matrix *mat_b = from_array(arr_b, 1, 2);
+    matrix *result = insert_row(mat_a, mat_b, 1);
+    assert(result != NULL);
+    assert(result->rows == 3);
+    assert(result->cols == 2);
+    for (int i = 0; i < 3 * 2; i++) {
+        assert(result->data[i] == i + 1);
+    }
+    matrix_free(mat_a);
+    matrix_free(mat_b);
+    matrix_free(result);
+}
+
+void test_insert_col() {
+    double arr_a[] = {1, 3, 4, 6};
+    matrix *mat_a = from_array(arr_a, 2, 2);
+    assert(insert_row(mat_a, NULL, 1) == NULL);
+    assert(insert_row(mat_a, mat_a, -1) == NULL);
+    double arr_b[] = {2, 5};
+    matrix *mat_b = from_array(arr_b, 2, 1);
+    matrix *result = insert_col(mat_a, mat_b, 1);
+    assert(result != NULL);
+    assert(result->rows == 2);
+    assert(result->cols == 3);
+    for (int i = 0; i < 2 * 3; i++) {
+        assert(result->data[i] == i + 1);
+    }
+    matrix_free(mat_a);
+    matrix_free(mat_b);
+    matrix_free(result);
+}
+
 void test_remove_row() {
     assert(remove_row(NULL, 1) == NULL);
     double arr[] = {1, 3, 2, 4};
@@ -108,6 +146,8 @@ void test_all_inner() {
     test_get_column();
     test_swap_rows();
     test_subtract_row();
+    test_insert_row();
+    test_insert_col();
     test_remove_row();
     test_remove_col();
     printf("Passed\n");
