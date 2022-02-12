@@ -57,10 +57,29 @@ void test_row_reduction() {
     matrix_free(final);
 }
 
+void test_row_reduction_square() {
+    double arr_a[] = {1, 2, 3, 2, -1, 1, 3, 0, -1};
+    matrix *mat_a = from_array(arr_a, 4, 3);
+    double arr_b[] = {-1, 3, 3, 5};
+    matrix *mat_b = from_array(arr_b, 4, 1);
+    matrix *result = row_reduction(mat_a, mat_b);
+    assert(result != NULL);
+    assert(result->rows == 4);
+    assert(result->cols == 4);
+    matrix *expected = identity(4);
+    for (int i = 0; i < 4 * 4; i++) {
+        assert(result->data[i] == expected->data[i]);
+    }
+    matrix_free(mat_a);
+    matrix_free(mat_b);
+    matrix_free(result);
+}
+
 void test_all_solve() {
     printf("Testing equation solvers...\t\t");
     test_determinant();
     test_inverse();
     test_row_reduction();
+    test_row_reduction_square();
     printf("Passed\n");
 }
