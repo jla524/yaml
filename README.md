@@ -6,6 +6,7 @@ Currently supports:
 - Matrix operations (add, subtract, multiply, dot, etc.)
 - Row echelon form
 - Reduced row echelon form
+- Solving systems of linear equations
 
 ## Quickstart Guide
 
@@ -17,5 +18,8 @@ Compile and run unit tests with `make && ./test`
 
 [Row echeon form][2]
 
+[Solving Systems of Linear Equations Using Matrices][3]
+
 [1]: https://www.andreinc.net/2021/01/20/writing-your-own-linear-algebra-matrix-library-in-c
 [2]: https://en.wikipedia.org/wiki/Row_echelon_form
+[3]: https://www.mathsisfun.com/algebra/systems-linear-equations-matrices.html

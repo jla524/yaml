@@ -5,6 +5,7 @@
 #include "test_helpers.h"
 #include "test_inner.h"
 #include "test_echelon.h"
+#include "test_solve.h"
 
 int main() {
     printf("Starting unit tests\n");
@@ -14,6 +15,7 @@ int main() {
     test_all_helpers();
     test_all_inner();
     test_all_echelon();
+    test_all_solve();
     printf("Completed\n");
     return 0;
 }
