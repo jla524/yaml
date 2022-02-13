@@ -20,13 +20,16 @@ double determinant(matrix *mat) {
         return a * d - b * c;
     }
     double result = 0;
+    matrix *partial_mats[mat->cols];
     matrix *sub_mats[mat->cols];
     for (int i = 0; i < mat->cols; i++) {
         int sign = i % 2 ? -1 : 1;
         double constant = get_value(mat, 0, i);
-        sub_mats[i] = remove_row(remove_col(mat, i), 0);
+        partial_mats[i] = remove_col(mat, i);
+        sub_mats[i] = remove_row(partial_mats[i], 0);
         result += sign * constant * determinant(sub_mats[i]);
-        free(sub_mats[i]);
+        matrix_free(partial_mats[i]);
+        matrix_free(sub_mats[i]);
     }
     return result;
 }
