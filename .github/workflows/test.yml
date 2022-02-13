@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Tests
 
 on: [push, pull_request]
 
@@ -12,3 +12,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Run test
         run: make && ./test
+
+  valgrind:
+    name: memory error detection
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install valgrind
+        run: sudo apt update && sudo apt-get install -y valgrind
+      - name: Run valgrind
+        run: make && valgrind --leak-check=full ./test
