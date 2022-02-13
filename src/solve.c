@@ -53,3 +53,17 @@ matrix *row_reduction(matrix *a, matrix *b) {
     compute_reduced_row_echelon(mat);
     return mat;
 }
+
+int rank(matrix *mat) {
+    if (mat == NULL) {
+        return 0;
+    }
+    compute_row_echelon(mat);
+    int non_zeros= 0;
+    for (int i = 0; i < mat->rows; i++) {
+        if (find_row_pivot(mat, i) != -1) {
+            non_zeros++;
+        }
+    }
+    return non_zeros;
+}

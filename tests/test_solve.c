@@ -71,10 +71,22 @@ void test_row_reduction() {
     matrix_free(final);
 }
 
+void test_rank() {
+    assert(rank(NULL) == 0);
+    double arr[] = {1, 2, 1, -2, -3, 1, 3, 5, 0};
+    matrix *mat = from_array(arr, 3, 3);
+    assert(rank(mat) == 2);
+    unsigned int n = 3;
+    matrix *eye = identity(n);
+    assert(rank(eye) == n);
+    matrix_free(mat);
+}
+
 void test_all_solve() {
     printf("Testing equation solvers...\t\t");
     test_determinant();
     test_inverse();
     test_row_reduction();
+    test_rank();
     printf("Passed\n");
 }

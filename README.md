@@ -8,6 +8,7 @@ Currently supports:
 - Row/column operations (insert, swap, remove, etc.)
 - Determinant
 - Inverse
+- Rank
 - Row echelon form
 - Reduced row echelon form
 - Solving systems of linear equations
@@ -28,9 +29,12 @@ Compile and run unit tests with `make && ./test`
 
 [Inverse of a Matrix using Elementary Row Operations][5]
 
+[Rank (linear algebra)][6]
+
 
 [1]: https://www.andreinc.net/2021/01/20/writing-your-own-linear-algebra-matrix-library-in-c
 [2]: https://en.wikipedia.org/wiki/Row_echelon_form
 [3]: https://www.mathsisfun.com/algebra/systems-linear-equations-matrices.html
 [4]: https://www.mathsisfun.com/algebra/matrix-determinant.html
 [5]: https://www.mathsisfun.com/algebra/matrix-inverse-row-operations-gauss-jordan.html
+[6]: https://en.wikipedia.org/wiki/Rank_(linear_algebra)
