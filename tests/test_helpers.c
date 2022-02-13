@@ -41,20 +41,28 @@ void test_col_valid() {
 
 void test_get_index() {
     double arr[] = {0.3, 0.5, 0.0, 0.1, 0.8, 0.1};
-    matrix *mat = from_array(arr, 2, 3);
-    for (int i = 0; i < 2 * 3; i++) {
-        double index = get_index(mat, i / 3, i % 3);
-        assert(index == i);
+    unsigned int rows = 2, cols = 3;
+    matrix *mat = from_array(arr, rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            double expected = arr[i * cols + j];
+            double actual = get_value(mat, i, j);
+            assert(expected == actual);
+        }
     }
     matrix_free(mat);
 }
 
 void test_get_value() {
     double arr[] = {0.5, 2.4, 1.3, 0.1, 1.5, 2.7};
-    matrix *mat = from_array(arr, 3, 2);
-    for (int i = 0; i < 3 * 2; i++) {
-        double value = get_value(mat, i / 2, i % 2);
-        assert(value == arr[i]);
+    unsigned int rows = 3, cols = 2;
+    matrix *mat = from_array(arr, rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            double expected = arr[i * cols + j];
+            double actual = get_value(mat, i, j);
+            assert(expected == actual);
+        }
     }
     matrix_free(mat);
 }

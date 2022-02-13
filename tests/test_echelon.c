@@ -62,24 +62,32 @@ void test_is_reduced_row_echelon() {
 
 void test_compute_row_echelon() {
     double arr[] = {0, 1, 0, 0, 5, 9};
-    matrix *mat = from_array(arr, 3, 2);
+    unsigned int rows = 3, cols = 2;
+    matrix *mat = from_array(arr, rows, cols);
     compute_row_echelon(mat);
     assert(is_row_echelon(mat));
     double expected[] = {5, 9, 0, 1, 0, 0};
-    for (int i = 0; i < 3 * 2; i++) {
-        assert(mat->data[i] == expected[i]);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            double actual = get_value(mat, i, j);
+            assert(expected[i * cols + j] == actual);
+        }
     }
     matrix_free(mat);
 }
 
 void test_compute_reduced_row_echelon() {
     double arr[] = {1, 3, -1, 0, 1, 7};
-    matrix *mat = from_array(arr, 2, 3);
+    unsigned int rows = 2, cols = 3;
+    matrix *mat = from_array(arr, rows, cols);
     compute_reduced_row_echelon(mat);
     assert(is_reduced_row_echelon(mat));
     double expected[] = {1, 0, -22, 0, 1, 7};
-    for (int i = 0; i < 2 * 3; i++) {
-        assert(mat->data[i] == expected[i]);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            double actual = get_value(mat, i, j);
+            assert(expected[i * cols + j] == actual);
+        }
     }
     matrix_free(mat);
 }

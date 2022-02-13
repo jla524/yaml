@@ -3,17 +3,19 @@
 #include "test_operations.h"
 #include "../src/init.h"
 #include "../src/operations.h"
+#include "../src/helpers.h"
 
 void test_matrix_add() {
     double array_a[] = {1, 2, 3, 5};
     double array_b[] = {2, 5, 7, 9};
-    matrix *mat_a = from_array(array_a, 2, 2);
-    matrix *mat_b = from_array(array_b, 2, 2);
-    matrix *mat_sum = matrix_new(2, 2);
+    unsigned int rows = 2, cols = 2;
+    matrix *mat_a = from_array(array_a, rows, cols);
+    matrix *mat_b = from_array(array_b, rows, cols);
+    matrix *mat_sum = matrix_new(rows, cols);
     matrix_add(mat_a, mat_b, mat_sum);
-    for (int i = 0; i < 2 * 2; i++) {
+    for (int i = 0; i < rows * cols; i++) {
         double expected = array_a[i] + array_b[i];
-        assert(mat_sum->data[i] == expected);
+        assert(expected == mat_sum->data[i]);
     }
     matrix_free(mat_a);
     matrix_free(mat_b);
@@ -23,13 +25,14 @@ void test_matrix_add() {
 void test_matrix_subtract() {
     double array_a[] = {7, 8, 5, -3};
     double array_b[] = {3, 8, 4, 6};
-    matrix *mat_a = from_array(array_a, 2, 2);
-    matrix *mat_b = from_array(array_b, 2, 2);
-    matrix *mat_diff = matrix_new(2, 2);
+    unsigned int rows = 2, cols = 2;
+    matrix *mat_a = from_array(array_a, rows, cols);
+    matrix *mat_b = from_array(array_b, rows, cols);
+    matrix *mat_diff = matrix_new(rows, cols);
     matrix_subtract(mat_a, mat_b, mat_diff);
-    for (int i = 0; i < 2 * 2; i++) {
+    for (int i = 0; i < rows * cols; i++) {
         double expected = array_a[i] - array_b[i];
-        assert(mat_diff->data[i] == expected);
+        assert(expected == mat_diff->data[i]);
     }
     matrix_free(mat_a);
     matrix_free(mat_b);
@@ -39,13 +42,14 @@ void test_matrix_subtract() {
 void test_matrix_multiply() {
     double array_a[] = {2, 5, 3, 4};
     double array_b[] = {4, 7, 1, 5};
-    matrix *mat_a = from_array(array_a, 2, 2);
-    matrix *mat_b = from_array(array_b, 2, 2);
-    matrix *mat_prod = matrix_new(2, 2);
+    unsigned int rows = 2, cols = 2;
+    matrix *mat_a = from_array(array_a, rows, cols);
+    matrix *mat_b = from_array(array_b, rows, cols);
+    matrix *mat_prod = matrix_new(rows, cols);
     matrix_multiply(mat_a, mat_b, mat_prod);
-    for (int i = 0; i < 2 * 2; i++) {
+    for (int i = 0; i < rows * cols; i++) {
         double expected = array_a[i] * array_b[i];
-        assert(mat_prod->data[i] == expected);
+        assert(expected == mat_prod->data[i]);
     }
     matrix_free(mat_a);
     matrix_free(mat_b);
@@ -54,13 +58,14 @@ void test_matrix_multiply() {
 
 void test_matrix_transpose() {
     double arr[] = {1, 4, 5, 2, 7, 3, 8, -3, 1};
-    matrix *source = from_array(arr, 3, 3);
-    matrix *transposed = matrix_new(3, 3);
+    unsigned int rows = 3, cols = 3;
+    matrix *source = from_array(arr, rows, cols);
+    matrix *transposed = matrix_new(rows, cols);
     matrix_transpose(source, transposed);
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            double expected = source->data[j * 3 + i];
-            double actual = transposed->data[i * 3 + j];
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            double expected = get_value(source, j, i);
+            double actual = get_value(transposed, i, j);
             assert(expected == actual);
         }
     }
@@ -71,13 +76,18 @@ void test_matrix_transpose() {
 void test_matrix_dot() {
     double array_a[] = {1, 4, 2, 2, 3, 2, 3, 4, 2};
     double array_b[] = {7, 2, 2, 2, 7, 2, 1, 6, 6};
-    matrix *mat_a = from_array(array_a, 3, 3);
-    matrix *mat_b = from_array(array_b, 3, 3);
-    matrix *mat_dot = matrix_new(3, 3);
+    unsigned int rows = 3, cols = 3;
+    matrix *mat_a = from_array(array_a, rows, cols);
+    matrix *mat_b = from_array(array_b, rows, cols);
+    matrix *mat_dot = matrix_new(rows, cols);
     matrix_dot(mat_a, mat_b, mat_dot);
     double expected[] = {17, 42, 22, 22, 37, 22, 31, 46, 26};
-    for (int i = 0; i < 3 * 3; i++) {
-        assert(mat_dot->data[i] == expected[i]);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            int index = i * cols + j;
+            double actual = get_value(mat_dot, i, j);
+            assert(expected[index] == actual);
+        }
     }
     matrix_free(mat_a);
     matrix_free(mat_b);

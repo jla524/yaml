@@ -6,10 +6,11 @@
 void test_matrix_new() {
     matrix *invalid = matrix_new(0, 3);
     assert(invalid == NULL);
-    matrix *valid= matrix_new(1, 3);
+    unsigned int rows = 1, cols = 3;
+    matrix *valid= matrix_new(rows, cols);
     assert(valid != NULL);
-    assert(valid->rows == 1);
-    assert(valid->cols == 3);
+    assert(valid->rows == rows);
+    assert(valid->cols == cols);
     assert(valid->data != NULL);
     matrix_free(valid);
 }
