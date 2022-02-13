@@ -23,4 +23,4 @@ jobs:
       - name: Install valgrind
         run: sudo apt update && sudo apt-get install -y valgrind
       - name: Run valgrind
-        run: make && valgrind --leak-check=full ./test
+        run: make && valgrind --leak-check=full --error-exitcode=1 ./test
