@@ -80,6 +80,7 @@ void test_rank() {
     matrix *eye = identity(n);
     assert(rank(eye) == n);
     matrix_free(mat);
+    matrix_free(eye);
 }
 
 void test_all_solve() {
