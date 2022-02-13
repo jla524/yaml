@@ -120,12 +120,12 @@ void test_from_array() {
     for (int i = 0; i < 3 * 2; i++) {
         assert(expected[i] == mat->data[i]);
     }
+    matrix_free(mat);
 }
 
 void test_from_file() {
     assert(from_file(NULL) == NULL);
-    matrix *not_exist = from_file("file_that_does_not_exist.txt");
-    assert(not_exist == NULL);
+    assert(from_file("file_that_does_not_exist.txt") == NULL);
     matrix *mat = from_file("tests/example_matrix.txt");
     assert(mat != NULL);
     assert(mat->rows == 3);
@@ -134,6 +134,7 @@ void test_from_file() {
     for (int i = 0; i < 3 * 2; i++) {
         assert(expected[i] == mat->data[i]);
     }
+    matrix_free(mat);
 }
 
 void test_all_init() {

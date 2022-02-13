@@ -34,29 +34,29 @@ void test_find_col_pivot() {
 
 void test_is_row_echelon() {
     assert(!is_row_echelon(NULL));
-    assert(!is_row_echelon(ones(2, 2)));
-    assert(is_row_echelon(zeros(1, 3)));
-    assert(is_row_echelon(identity(5)));
+    matrix *one = ones(2, 2);
+    assert(!is_row_echelon(one));
+    matrix *eye = identity(5);
+    assert(is_row_echelon(eye));
     double arr[] = {0, 1, 2, 3};
     matrix *mat = from_array(arr, 2, 2);
     assert(!is_row_echelon(mat));
     swap_rows(mat, 0, 1);
     assert(is_row_echelon(mat));
+    matrix_free(one);
+    matrix_free(eye);
     matrix_free(mat);
 }
 
 void test_is_reduced_row_echelon() {
     assert(!is_reduced_row_echelon(NULL));
-    assert(!is_reduced_row_echelon(ones(3, 1)));
-    assert(is_reduced_row_echelon(zeros(2, 2)));
-    assert(is_reduced_row_echelon(identity(4)));
+    matrix *zero = zeros(2, 2);
+    assert(is_reduced_row_echelon(zero));
     double arr[] = {1, 0, 2, 0, 1, 0};
     matrix *mat = from_array(arr, 2, 3);
     assert(mat->cols == 3);
     assert(is_reduced_row_echelon(mat));
-    int index = get_index(mat, 0, 2);
-    mat->data[index] = 0;
-    assert(is_reduced_row_echelon(mat));
+    matrix_free(zero);
     matrix_free(mat);
 }
 

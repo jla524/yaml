@@ -20,11 +20,13 @@ double determinant(matrix *mat) {
         return a * d - b * c;
     }
     double result = 0;
+    matrix *sub_mats[mat->cols];
     for (int i = 0; i < mat->cols; i++) {
         int sign = i % 2 ? -1 : 1;
         double constant = get_value(mat, 0, i);
-        matrix *sub_mat = remove_row(remove_col(mat, i), 0);
-        result += sign * constant * determinant(sub_mat);
+        sub_mats[i] = remove_row(remove_col(mat, i), 0);
+        result += sign * constant * determinant(sub_mats[i]);
+        free(sub_mats[i]);
     }
     return result;
 }
@@ -36,7 +38,7 @@ matrix *inverse(matrix *mat) {
     matrix *eye = identity(mat->rows);
     matrix *result = concat_col(mat, eye);
     compute_reduced_row_echelon(result);
-    free(eye);
+    matrix_free(eye);
     return result;
 }
 

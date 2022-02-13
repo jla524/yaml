@@ -12,16 +12,16 @@ void test_get_row() {
     matrix *mat = from_array(arr, 3, 2);
     assert(get_row(mat, -1) == NULL);
     assert(get_row(mat, 3) == NULL);
-    double *row;
+    double *rows[3];
     for (int i = 0; i < 3; i++) {
-        row = get_row(mat, i);
+        rows[i] = get_row(mat, i);
         for (int j = 0; j < 2; j++) {
             double expected = arr[i * 2 + j];
-            assert(expected == row[j]);
+            assert(expected == rows[i][j]);
         }
+        free(rows[i]);
     }
     matrix_free(mat);
-    free(row);
 }
 
 void test_get_column() {
@@ -30,16 +30,16 @@ void test_get_column() {
     matrix *mat = from_array(arr, 2, 3);
     assert(get_column(mat, -1) == NULL);
     assert(get_column(mat, 3) == NULL);
-    double *column;
+    double *columns[3];
     for (int i = 0; i < 3; i++) {
-        column = get_column(mat, i);
+        columns[i]= get_column(mat, i);
         for (int j = 0; j < 2; j++) {
             double expected = arr[j * 3 + i];
-            assert(expected == column[j]);
+            assert(expected == columns[i][j]);
         }
+        free(columns[i]);
     }
     matrix_free(mat);
-    free(column);
 }
 
 void test_swap_rows() {

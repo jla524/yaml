@@ -22,10 +22,11 @@ void test_determinant() {
 void test_inverse() {
     double arr[] = {3, 0, 2, 2, 0, -2, 0, 1, 1};
     matrix *mat = from_array(arr, 3, 3);
-    matrix *result = inverse(mat);
     double inverse_arr[] = {0.2, 0.2, 0, -0.2, 0.3, 1, 0.2, -0.3, 0};
+    matrix *eye = identity(3);
     matrix *inverse_mat = from_array(inverse_arr, 3, 3);
-    matrix *expected = concat_col(identity(3), inverse_mat);
+    matrix *expected = concat_col(eye, inverse_mat);
+    matrix *result = inverse(mat);
     double tolerance = 1e-15;
     for (int i = 0; i < 6 * 3; i++) {
         double error = expected->data[i] - result->data[i];
@@ -33,6 +34,7 @@ void test_inverse() {
     }
     matrix_free(mat);
     matrix_free(result);
+    matrix_free(eye);
     matrix_free(inverse_mat);
     matrix_free(expected);
 }
