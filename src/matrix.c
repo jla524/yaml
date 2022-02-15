@@ -5,7 +5,7 @@ matrix *matrix_new(unsigned int rows, unsigned int cols) {
     if (rows == 0 || cols == 0) {
         return NULL;
     }
-    matrix *mat = malloc(sizeof(*mat));
+    matrix *mat = malloc(sizeof *mat);
     mat->rows = rows;
     mat->cols = cols;
     mat->data = malloc(sizeof(double) * rows * cols);
